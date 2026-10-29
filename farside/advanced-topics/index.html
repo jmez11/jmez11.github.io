@@ -92,6 +92,7 @@
     <pre><code>cloudflared access tcp --hostname &lt;hostname&gt; --url 127.0.0.1:&lt;bridge-port&gt;
 adb connect 127.0.0.1:&lt;bridge-port&gt;</code></pre>
     <p>That carries the headset's existing wireless ADB authentication through the relay. It does not publish a raw public TCP port, and it is developer access to the headset, not a Farside session — it is the route used to install and test builds on the headset from elsewhere.</p>
+    <p>That “elsewhere” does not have to be another computer in your home. It can also be a cloud-hosted build environment — for example, OpenAI Codex Cloud or GitHub Codespaces — running the build while the headset sits at home. The cloud environment runs the same two commands above, connects ADB through Cloudflare, and can install and test the build on the real headset, just as a local machine would.</p>
   </section>
 
   <nav class="doc-nav">
