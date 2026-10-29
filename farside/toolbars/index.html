@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toolbars &amp; sessions — Farside Workspace</title>
+<meta name="description" content="What is in Farside's floating toolbars, for desktop sessions and SSH terminals, and how to disconnect.">
+<link rel="icon" href="../../assets/logo.png">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+.doc h2 { margin-top: 2.5rem; }
+.doc h3 { margin-top: 1.75rem; }
+.doc li { margin-bottom: 0.4rem; }
+.doc-nav { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 2.5rem; }
+.back { color: var(--muted); text-decoration: none; }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a href="../../" style="display:flex;align-items:center;gap:0.75rem;text-decoration:none;color:inherit;">
+    <img src="../../assets/logo.png" alt="OceanSideVR logo" class="logo">
+    <span class="wordmark">OceanSideVR</span>
+  </a>
+</header>
+<main class="doc">
+  <p><a class="back" href="../">&larr; Farside Workspace</a></p>
+  <section class="hero" style="padding-top:2rem;">
+    <h1>Toolbars &amp; sessions</h1>
+    <p>Every session has a floating toolbar over its window. It shows the connection name, and you can drag it anywhere in the window.</p>
+  </section>
+
+  <section>
+    <h2>The floating toolbar</h2>
+    <ul>
+      <li><strong>Pin / Keep toolbar visible</strong> — otherwise the toolbar collapses. Double-tap to collapse it to an edge nub, drag the nub up or down, and tap its arrow to restore it.</li>
+      <li>In SSH, the toolbar hides after a few seconds unless pinned.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Desktop toolbar — RDP, VNC, and Mac</h2>
+    <p>In order, the desktop toolbar offers:</p>
+    <ol>
+      <li>Connection name (or “Desktop N – name” when an RDP host has multiple monitors)</li>
+      <li>Pin / Keep toolbar visible</li>
+      <li>Window Manager (when available)</li>
+      <li>Pick up content / Cancel content move — multi-monitor RDP only</li>
+      <li>Add desktop — multi-monitor RDP only, when the host reports more than one monitor</li>
+      <li>Mute / Unmute speakers — RDP always; for VNC only when Apple high-performance Mac streaming is active</li>
+      <li>Browse files — VNC only, with a paired SSH connection that has file access enabled</li>
+      <li>Mute / Unmute microphone — only when microphone redirection is on</li>
+      <li>Mute / Unmute camera — only when camera redirection is on</li>
+      <li>Zoom — 1&times;–3&times; slider plus Reset Zoom; above 1&times; a pan pad appears</li>
+      <li>Transparency — window opacity slider</li>
+      <li>Connection Info — when enabled in About, shows the profile, host, protocol, decoder, transport, canvas, and scale/zoom; for VNC also Mac auth mode and Apple streaming status</li>
+      <li>Unlock with saved password — Mac only; confirms, then sends the saved Mac password</li>
+      <li>Keyboard toggle — opens the on-screen keyboard and extra-key panel</li>
+    </ol>
+    <p>For VNC, camera, microphone, storage redirection, and RemoteApp are not available. Sound plays on-device only with Apple Mac streaming and Mac audio enabled.</p>
+  </section>
+
+  <section>
+    <h2>SSH / terminal toolbar</h2>
+    <p>In order, the terminal toolbar offers:</p>
+    <ol>
+      <li>Connection name</li>
+      <li>Pin / Keep toolbar visible</li>
+      <li>Window Manager (when available)</li>
+      <li>Zoom — terminal font size, with a reset to the profile default</li>
+      <li>Transparency — terminal opacity slider</li>
+      <li>Browse files — once an SFTP probe over the same SSH connection succeeds</li>
+      <li>Port forwarding — opens the forwarding dialog, saved to the profile and applied live</li>
+      <li>Keyboard toggle — the same on-screen keyboard and extra-key panel as desktop</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Keyboard</h2>
+    <p>The Keyboard toggle shows the on-screen keyboard plus a fixed extra-key panel: F1–F12, Win, Shift, Ctrl, Alt, AltGr, Del, Esc, Tab, Backspace, arrows, Home/End, Page Up/Down, Insert/Delete/Enter, Print Screen, and keypad symbols.</p>
+    <p>On a confirmed Mac, Win becomes Command, Alt becomes Option, AltGr becomes Right Option, Ctrl becomes Control, and Del becomes Forward Delete.</p>
+  </section>
+
+  <section>
+    <h2>Disconnecting</h2>
+    <p>To disconnect, use the Horizon OS <strong>X button on the system control bar below the window</strong>. There is no Disconnect button in Farside's own toolbars.</p>
+    <p>If a connection drops, a Reconnect dialog offers Reconnect or Cancel, and Reconnect Automatically is saved back to the connection. If a connection fails, a Connection failed dialog offers Close.</p>
+  </section>
+
+  <nav class="doc-nav">
+    <a class="btn" href="../getting-started/">&larr; Getting started</a>
+    <a class="btn" href="../credentials/">Next: Credentials &amp; files &rarr;</a>
+  </nav>
+</main>
+<footer>
+  <p>&copy; 2026 OceanSideVR &middot; <a href="../">Farside Workspace</a> &middot; <a href="../../">OceanSideVR home</a></p>
+</footer>
+</body>
+</html>

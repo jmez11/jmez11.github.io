@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Getting started — Farside Workspace</title>
+<meta name="description" content="Set up Farside and add your first RDP, SSH, or VNC connection.">
+<link rel="icon" href="../../assets/logo.png">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+.doc h2 { margin-top: 2.5rem; }
+.doc h3 { margin-top: 1.75rem; }
+.doc li { margin-bottom: 0.4rem; }
+.doc-nav { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 2.5rem; }
+.back { color: var(--muted); text-decoration: none; }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a href="../../" style="display:flex;align-items:center;gap:0.75rem;text-decoration:none;color:inherit;">
+    <img src="../../assets/logo.png" alt="OceanSideVR logo" class="logo">
+    <span class="wordmark">OceanSideVR</span>
+  </a>
+</header>
+<main class="doc">
+  <p><a class="back" href="../">&larr; Farside Workspace</a></p>
+  <section class="hero" style="padding-top:2rem;">
+    <h1>Getting started</h1>
+    <p>Farside opens on your connections. Add one, tap it, and it opens as a spatial window in your room.</p>
+  </section>
+
+  <section>
+    <h2>The launcher</h2>
+    <p>Your saved connections are shown as cards. Tap a card to connect, or drag it into space to place its window. At the top right you will find:</p>
+    <ul>
+      <li><strong>Add Connection</strong> — add a new RDP, SSH, or VNC connection</li>
+      <li><strong>Window Manager</strong> — arrange your open windows (when available)</li>
+      <li><strong>Files</strong> — browse files over SFTP (when you have an SSH connection with file access enabled)</li>
+      <li><strong>Vault</strong> — your saved sign-ins and SSH keys</li>
+      <li><strong>Info</strong> — About Farside, and the Vault</li>
+    </ul>
+    <p>On a connection card you can star it to keep it first, reorder it, or open More options to edit or delete it.</p>
+  </section>
+
+  <section>
+    <h2>Adding a connection</h2>
+    <p>Adding a connection takes four steps. Back and Continue move between them, and Save connection finishes.</p>
+
+    <h3>1. What are you connecting to?</h3>
+    <ul>
+      <li><strong>RDP</strong> — Windows Remote Desktop</li>
+      <li><strong>SSH</strong> — Secure shell &amp; terminal</li>
+      <li><strong>VNC</strong> — VNC servers &amp; Mac Screen Sharing</li>
+    </ul>
+    <p>For VNC, first choose how the server asks you to sign in: a short VNC password set on the server, or a full user account on the machine. For Mac Screen Sharing, use the macOS user account.</p>
+
+    <h3>2. Which computer?</h3>
+    <p>Enter a connection name (it defaults to the host if left blank), the host or server, and the port. RDP and VNC can also find local PCs and devices on your network — tap a discovered device to fill these in. For SSH, type the host yourself.</p>
+
+    <h3>3. Sign in</h3>
+    <p>Choose a saved sign-in from the Vault, or a sign-in for this connection only.</p>
+    <ul>
+      <li><strong>RDP and VNC (user account):</strong> username and password</li>
+      <li><strong>VNC (VNC password):</strong> password only, no username</li>
+      <li><strong>SSH:</strong> password or SSH key — sign-in is optional, so you can leave these empty and enter them when connecting</li>
+    </ul>
+
+    <h3>4. Review &amp; options</h3>
+    <p>Check the summary, then set the options for your connection type:</p>
+    <ul>
+      <li><strong>RDP — Display &amp; audio:</strong> play sound, redirect microphone, camera, clipboard, and storage, connect to console, admin mode</li>
+      <li><strong>SSH — SSH options:</strong> jump host, SFTP file access, port forwards, auto-copy selection to clipboard</li>
+      <li><strong>VNC — General, Files, and Companion remote login:</strong> clipboard redirection, pairing with an SSH connection for files, SSH media relay, and using SSH for the full Mac connection</li>
+      <li><strong>Network (all types):</strong> Direct, Cloudflare, SOCKS5, or HTTP, plus Reconnect Automatically</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Connection types at a glance</h2>
+    <ul>
+      <li><strong>RDP</strong> — a Windows desktop, with sound, microphone, camera, clipboard, and storage redirection.</li>
+      <li><strong>SSH</strong> — a terminal, with jump hosts, port forwards, and SFTP file access.</li>
+      <li><strong>VNC</strong> — a VNC desktop, or a Mac via Screen Sharing. Pair it with an SSH connection to browse files inside the VNC window, or route the whole Mac connection through SSH.</li>
+      <li><strong>Cloudflare tunnel</strong> — instead of a direct connection, route through Cloudflare Access. Browser sign-in opens when needed, and tokens stay in private app storage.</li>
+    </ul>
+    <p>Jump hosts chain SSH connections together, up to three hops, and a preview of the chain is shown when you review the connection.</p>
+  </section>
+
+  <nav class="doc-nav">
+    <a class="btn" href="../toolbars/">Next: Toolbars &amp; sessions &rarr;</a>
+    <a class="btn ghost" href="../credentials/">Credentials &amp; files</a>
+  </nav>
+</main>
+<footer>
+  <p>&copy; 2026 OceanSideVR &middot; <a href="../">Farside Workspace</a> &middot; <a href="../../">OceanSideVR home</a></p>
+</footer>
+</body>
+</html>
