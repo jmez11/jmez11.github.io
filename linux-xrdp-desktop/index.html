@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linux XRDP Desktop — OceanSideVR</title>
+<meta name="description" content="A full Ubuntu 24.04 XFCE desktop in a Docker container, accessible over RDP — with H.264 video, audio, drive redirection, and GPU-accelerated OpenGL.">
+<link rel="icon" href="../assets/logo.png">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<header class="site-header">
+  <a href="../" style="display:flex;align-items:center;gap:0.75rem;text-decoration:none;color:inherit;">
+    <img src="../assets/logo.png" alt="OceanSideVR logo" class="logo">
+    <span class="wordmark">OceanSideVR</span>
+  </a>
+</header>
+<main>
+  <section class="hero">
+    <h1>Linux XRDP Desktop</h1>
+    <p>A full Ubuntu desktop in a container, over RDP.</p>
+    <p>A full Ubuntu 24.04 XFCE desktop in a Docker container, accessible over RDP &mdash; built for a fast, responsive remote Linux desktop that actually plays video smoothly.</p>
+    <p class="tag">Open source &middot; MIT</p>
+    <div class="links">
+      <a class="btn" href="https://github.com/jmez11/linux-xrdp-desktop">GitHub</a>
+    </div>
+  </section>
+
+  <section>
+    <img src="../assets/linux-xrdp-desktop.jpg" alt="Linux XRDP desktop" style="width:100%;border-radius:14px;">
+  </section>
+
+  <section>
+    <h2>What you get</h2>
+    <ul>
+      <li><strong>Ubuntu 24.04 + XFCE</strong> &mdash; Arc-Dark theme, Papirus icons, dark aurora wallpaper.</li>
+      <li><strong>H.264 RDP encoding</strong> &mdash; xrdp 0.10.3 + xorgxrdp 0.10.3 built from source with x264 (Ubuntu's xrdp 0.9.x has no H.264 support). Smooth video playback and snappy window dragging at 1080p.</li>
+      <li><strong>TLS-encrypted RDP</strong> on port 3389, with multi-monitor support.</li>
+      <li><strong>Audio both ways</strong> &mdash; PulseAudio playback and microphone redirection over RDP.</li>
+      <li><strong>Drive redirection</strong> &mdash; share client drives; they appear at <code>~/thinclient_drives/</code> via FUSE.</li>
+      <li><strong>Clipboard</strong> redirection.</li>
+      <li><strong>VirtualGL</strong> &mdash; GPU-accelerated OpenGL for headless servers (<code>vglrun glmark2</code> to test).</li>
+      <li><strong>Preinstalled apps</strong> &mdash; Firefox, VS Code, GIMP, Inkscape, VLC, LibreOffice, Blender, htop, neofetch, git.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Quick start</h2>
+    <p>Deploy with Portainer: create a new stack, paste in the repo's <code>docker-compose.portainer.yml</code>, <strong>change <code>RDP_PASS</code></strong>, and deploy. Or with Docker Compose:</p>
+    <ol>
+      <li>Clone the repo and edit <code>docker-compose.portainer.yml</code> to set <code>RDP_PASS</code>.</li>
+      <li>Run <code>docker compose -f docker-compose.portainer.yml up -d</code>.</li>
+      <li>Connect with any RDP client to <code>&lt;host&gt;:3389</code> and log in.</li>
+    </ol>
+    <p>The image is also published to <code>ghcr.io/jmez11/linux-xrdp-desktop</code>. Home directory persists in the <code>rdp_home</code> Docker volume. Pass <code>/dev/dri</code> through for GPU access.</p>
+  </section>
+
+  <section>
+    <h2>Configuration</h2>
+    <ul>
+      <li><code>RDP_USER</code> (default <code>engineer</code>) &mdash; desktop username, created on first start, has sudo.</li>
+      <li><code>RDP_PASS</code> (default <code>ChangeMe123!</code>) &mdash; <strong>change this</strong>. Login password.</li>
+      <li><code>TZ</code> (default <code>UTC</code>) &mdash; timezone.</li>
+      <li><code>LIBVA_DRIVER_NAME</code> (default <code>iHD</code>) &mdash; VAAPI driver: <code>iHD</code> (Intel), <code>radeonsi</code> (AMD), omit for NVIDIA.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Client setup (mstsc)</h2>
+    <p>Set these <strong>before connecting</strong> (Show Options):</p>
+    <ul>
+      <li><strong>Drives</strong> &mdash; Local Resources &rarr; More &rarr; Drives &rarr; tick your drives (appear at <code>~/thinclient_drives/</code>).</li>
+      <li><strong>Audio playback</strong> &mdash; Local Resources &rarr; Remote audio &rarr; Settings &rarr; <em>Play on this computer</em>.</li>
+      <li><strong>Microphone</strong> &mdash; same dialog &rarr; <em>Record from this computer</em>.</li>
+    </ul>
+    <p>Drive shares only take effect on a fresh login &mdash; if you tick them mid-session, log out of XFCE completely and reconnect.</p>
+  </section>
+
+  <section>
+    <h2>Limitations</h2>
+    <ul>
+      <li><strong>Webcams:</strong> xrdp has no video-capture channel, so client webcams can't be redirected over RDP. Microphone works; for video calls, use the client natively &mdash; or pass a host camera in with <code>--device=/dev/video0</code>.</li>
+      <li><strong>RDP only:</strong> no VNC/SSH in this image by design; it's a single-purpose desktop container.</li>
+    </ul>
+    <p>Full details, the Dockerfile, and the compose file are in the repo.</p>
+    <div class="links">
+      <a class="btn" href="https://github.com/jmez11/linux-xrdp-desktop">GitHub</a>
+      <a class="btn ghost" href="../">OceanSideVR home</a>
+    </div>
+  </section>
+</main>
+<footer>
+  <p>&copy; 2026 OceanSideVR &middot; <a href="../">OceanSideVR home</a> &middot; <a href="https://github.com/jmez11">GitHub</a></p>
+</footer>
+</body>
+</html>

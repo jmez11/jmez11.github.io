@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stillframe Daydream — OceanSideVR</title>
+<meta name="description" content="A photo gallery and system screensaver for Android TV / Google TV, showing Google Photos in five layouts with an offline cache and daily active hours.">
+<link rel="icon" href="../assets/logo.png">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<header class="site-header">
+  <a href="../" style="display:flex;align-items:center;gap:0.75rem;text-decoration:none;color:inherit;">
+    <img src="../assets/logo.png" alt="OceanSideVR logo" class="logo">
+    <span class="wordmark">OceanSideVR</span>
+  </a>
+</header>
+<main>
+  <section class="hero">
+    <h1>Stillframe Daydream</h1>
+    <p>Your photos, on the TV, even when you're not watching.</p>
+    <p>A remote-friendly photo gallery and system screensaver for Android TV / Google TV. It shows your Google Photos in five display modes, with configurable transitions, daily active hours, on-device framing, and a persistent photo cache.</p>
+    <p class="tag muted">Personal prototype &mdash; not currently offered for download</p>
+  </section>
+
+  <section>
+    <img src="../assets/stillframe.png" alt="Stillframe Daydream screensaver layouts" style="width:100%;border-radius:14px;">
+  </section>
+
+  <section>
+    <h2>Five layouts</h2>
+    <ul>
+      <li><strong>Fullscreen</strong> &mdash; one photo at a time, with Ken Burns pan/zoom or a photo-color textured mat with a recessed bevel and smooth fades.</li>
+      <li><strong>Mosaic</strong> &mdash; a tiled grid, per-photo or per-tile cadence.</li>
+      <li><strong>Gallery collage</strong> &mdash; arranged photos, with fades, slides/wipes, flips, and shrink transitions.</li>
+      <li><strong>Photo Pile</strong> &mdash; overlapping photos added one at a time, on black or textured linen.</li>
+      <li><strong>Side by side</strong> &mdash; two photos at once.</li>
+    </ul>
+    <p>Playback controls work in the system screensaver too: Left/Right visits previous/next photos, OK remembers the shown photo's type, Back exits.</p>
+  </section>
+
+  <section>
+    <h2>Screensaver, on your schedule</h2>
+    <ul>
+      <li><strong>Screensaver preferences</strong> &mdash; a separate fixed layout or automatic rotation through selected favorites, with interval and shuffle controls.</li>
+      <li><strong>System screensaver selection</strong> &mdash; set Stillframe as the TV's system screensaver from TV settings, with a restore-previous option to undo it.</li>
+      <li><strong>Daily active hours</strong> &mdash; local-time start/stop windows, including overnight. Outside scheduled hours, the scene goes black and releases the screen-on request.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Offline cache and smart framing</h2>
+    <ul>
+      <li><strong>Offline cache</strong> &mdash; configurable 64 MB&ndash;8 GB (default 512 MB), with deduplication, storage limits, source-aware cleanup, and network/quota fallback, so cached photos keep playing without a connection.</li>
+      <li><strong>Smart framing and 360&deg;</strong> &mdash; local face/visual-interest cropping, conservative panorama detection, perspective projection, and optional slow pan.</li>
+      <li><strong>Google diagnostics</strong> &mdash; failed operation, HTTP/Google error, failure time, retry delay, and last successful request, preserved during cached playback.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>About Google Photos access</h2>
+    <p>Google Photos uses the Ambient API, not the Picker. A working integration requires an eligible Google app registration; creating a generic Cloud project does not automatically provide Ambient access, and the Google Photos partner program requires acceptance before a project can use Ambient. Sign-in can succeed while photo listing is rejected, and the app's Photo loading status shows the exact error and cooldown.</p>
+    <p>Stillframe requests only the <code>photosambient.mediaitems</code> scope &mdash; no OpenID, email, or profile for new sign-ins.</p>
+    <div class="links">
+      <a class="btn ghost" href="../">OceanSideVR home</a>
+    </div>
+  </section>
+</main>
+<footer>
+  <p>&copy; 2026 OceanSideVR &middot; <a href="../">OceanSideVR home</a> &middot; <a href="https://github.com/jmez11">GitHub</a></p>
+</footer>
+</body>
+</html>
