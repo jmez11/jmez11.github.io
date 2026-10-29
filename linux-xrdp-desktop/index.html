@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Linux XRDP Desktop — OceanSideVR</title>
-<meta name="description" content="A full Ubuntu 24.04 XFCE desktop in a Docker container, accessible over RDP — with H.264 video, audio, drive redirection, and GPU-accelerated OpenGL.">
+<meta name="description" content="A full Ubuntu 24.04 XFCE desktop in a Docker container, accessible over RDP — with H.264 video, audio, webcam redirection, drive redirection, and GPU-accelerated OpenGL.">
 <link rel="icon" href="../assets/company-logo.png">
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -37,6 +37,7 @@
       <li><strong>H.264 RDP encoding</strong> &mdash; xrdp 0.10.3 + xorgxrdp 0.10.3 built from source with x264 (Ubuntu's xrdp 0.9.x has no H.264 support). Smooth video playback and snappy window dragging at 1080p.</li>
       <li><strong>TLS-encrypted RDP</strong> on port 3389, with multi-monitor support.</li>
       <li><strong>Audio both ways</strong> &mdash; PulseAudio playback and microphone redirection over RDP.</li>
+      <li><strong>Webcam redirection (<code>[MS-RDPECAM]</code>)</strong> &mdash; client cameras redirected over RDP video-capture channels, decoded (H.264 via OpenH264, plus raw YUY2/NV12/I420) and published as native PipeWire <code>Video/Source</code> camera nodes inside the container. Best efforts are made to keep them working in session: cameras enumerate on demand, pipelines are kept ready and restarted on device switch, and inactive pipelines are stopped cleanly so switching doesn't evict the client.</li>
       <li><strong>Drive redirection</strong> &mdash; share client drives; they appear at <code>~/thinclient_drives/</code> via FUSE.</li>
       <li><strong>Clipboard</strong> redirection.</li>
       <li><strong>VirtualGL</strong> &mdash; GPU-accelerated OpenGL for headless servers (<code>vglrun glmark2</code> to test).</li>
@@ -72,6 +73,7 @@
       <li><strong>Drives</strong> &mdash; Local Resources &rarr; More &rarr; Drives &rarr; tick your drives (appear at <code>~/thinclient_drives/</code>).</li>
       <li><strong>Audio playback</strong> &mdash; Local Resources &rarr; Remote audio &rarr; Settings &rarr; <em>Play on this computer</em>.</li>
       <li><strong>Microphone</strong> &mdash; same dialog &rarr; <em>Record from this computer</em>.</li>
+      <li><strong>Video capture devices</strong> &mdash; Local Resources &rarr; More &rarr; Video capture devices &rarr; tick your camera(s) (FreeRDP: <code>/camera:device,format:h264</code>). Redirected cameras appear as PipeWire <code>Video/Source</code> nodes and work in major browsers.</li>
     </ul>
     <p>Drive shares only take effect on a fresh login &mdash; if you tick them mid-session, log out of XFCE completely and reconnect.</p>
   </section>
@@ -79,7 +81,7 @@
   <section>
     <h2>Limitations</h2>
     <ul>
-      <li><strong>Webcams:</strong> xrdp has no video-capture channel, so client webcams can't be redirected over RDP. Microphone works; for video calls, use the client natively &mdash; or pass a host camera in with <code>--device=/dev/video0</code>.</li>
+      <li><strong>Webcams (best effort):</strong> video-capture channels are built in, but redirection is best effort, not guaranteed for every app. Browsers use the PipeWire camera nodes directly; native V4L2-only apps (e.g. Zoom desktop) need the optional <code>/dev/video0</code> passthrough described in the repo's Zoom webcam guide.</li>
       <li><strong>RDP only:</strong> no VNC/SSH in this image by design; it's a single-purpose desktop container.</li>
     </ul>
     <p>Full details, the Dockerfile, and the compose file are in the repo.</p>
