@@ -24,15 +24,15 @@
 
   <section>
     <h2>What Stillframe does</h2>
-    <p>Stillframe shows your Google Photos on your TV as a gallery and as a system screensaver. To do that, it needs access to the photos in the Google Photos albums you select. It does not need, and does not request, your email address, profile information, contacts, or any other Google account data.</p>
+    <p>Stillframe shows your Google Photos on your TV as a gallery and as a system screensaver. To do that, it needs access to the photos in the Google Photos albums you select. It also identifies the connected Google account by email, so you can tell in Settings which account is connected. It does not request profile information, contacts, or any other Google account data.</p>
   </section>
 
   <section>
     <h2>Google Photos access</h2>
     <ul>
-      <li><strong>Scope:</strong> Stillframe requests only the <code>photosambient.mediaitems</code> scope, which covers the media items in your Google Photos library for display through the Google Photos Ambient API. It does not request OpenID, email, or profile scopes for new sign-ins.</li>
+      <li><strong>Scopes:</strong> New sign-ins request <code>photosambient.mediaitems</code>, which covers the media items in your Google Photos library for display through the Google Photos Ambient API, plus <code>openid email</code> to identify the connected account. No profile scope is requested. Existing connections can keep playing and reconnect when ready to grant identity access.</li>
       <li><strong>Sign-in:</strong> Sign-in uses Google's OAuth 2.0 device flow: you authorize on your phone, and the TV receives an authorization token. No Google password is entered into, or stored by, Stillframe.</li>
-      <li><strong>Network requests:</strong> Stillframe talks to Google only &mdash; for sign-in, device and album state, and photo retrieval. It sends nothing to OceanSideVR servers, because there are none: the app has no developer-operated backend.</li>
+      <li><strong>Network requests:</strong> Stillframe talks to Google only &mdash; for sign-in, device and album state, photo retrieval, and the authenticated UserInfo request that returns your verified email address. It sends nothing to OceanSideVR servers, because there are none: the app has no developer-operated backend.</li>
     </ul>
   </section>
 
@@ -40,6 +40,7 @@
     <h2>What stays on your TV</h2>
     <ul>
       <li><strong>Authorization tokens</strong> are encrypted with Android Keystore and are excluded from Android backup.</li>
+      <li><strong>Connected-account identity:</strong> your verified email address, fetched from Google's authenticated UserInfo endpoint, is stored encrypted with Android Keystore. Its only purpose is identifying the connected account: in Private display mode, Settings shows the account by email; in the optional Public display mode, it shows only an initial-based avatar (or "Connected Google account"), and you must switch to Private mode to view the email. Your email never appears during the slideshow or in diagnostics, and an identity failure does not invalidate photo access.</li>
       <li><strong>Your photo cache</strong> lives in app-private storage on the TV, within the size limit you set (64 MB&ndash;8 GB, default 512 MB). The cache index stores photo IDs, dimensions, timestamps, and source evidence; it does not store account tokens or signed image URLs.</li>
       <li><strong>Photo analysis</strong> &mdash; face and visual-interest cropping, panorama detection &mdash; runs locally on the TV. Photos are not sent to OceanSideVR or any third party for analysis.</li>
       <li><strong>Diagnostics</strong> (failed operations, Google error details, failure time, retry delay, last successful request) are kept on the TV so the app can show its Photo loading status. They are not uploaded anywhere.</li>
@@ -57,7 +58,7 @@
 
   <section>
     <h2>Disconnecting and deleting your data</h2>
-    <p>Disconnecting in the app clears authorization, cached photos, and analysis from the TV. You can also revoke Stillframe's access at any time from your Google account's third-party access settings; revocation stops any further Google Photos requests from the app.</p>
+    <p>Disconnecting in the app clears authorization, cached photos, analysis, and stored account identity from the TV, and requests Google device deletion and token revocation. You can also revoke Stillframe's access at any time from your Google account's third-party access settings; revocation stops any further Google Photos requests from the app.</p>
     <p>Album-selection removals are reconciled conservatively in the local cache, so a removed album's cached photos are not guaranteed to disappear instantly until the cache is reconciled or cleared on disconnect.</p>
   </section>
 

@@ -64,7 +64,7 @@
   <section>
     <h2>About Google Photos access</h2>
     <p>Google Photos uses the Ambient API, not the Picker. A working integration requires an eligible Google app registration; creating a generic Cloud project does not automatically provide Ambient access, and the Google Photos partner program requires acceptance before a project can use Ambient. Sign-in can succeed while photo listing is rejected, and the app's Photo loading status shows the exact error and cooldown.</p>
-    <p>Stillframe requests only the <code>photosambient.mediaitems</code> scope &mdash; no OpenID, email, or profile for new sign-ins.</p>
+    <p>New sign-ins request the <code>photosambient.mediaitems</code> scope to display selected photos, plus <code>openid email</code> to identify the connected account in Settings. No profile scope is requested, and email is used only for that identification &mdash; see the <a href="privacy/">Privacy Policy</a>.</p>
     <div class="links">
       <a class="btn ghost" href="privacy/">Privacy Policy</a>
       <a class="btn ghost" href="../">OceanSideVR home</a>
