@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Linux XRDP Desktop — OceanSideVR</title>
-<meta name="description" content="A full Ubuntu 24.04 XFCE desktop in a Docker container, accessible over RDP — with H.264 video, audio, webcam redirection, drive redirection, and GPU-accelerated OpenGL.">
+<meta name="description" content="A full Ubuntu 24.04 KDE Plasma desktop in a Docker container, styled like macOS and accessible over RDP — with H.264 video, audio, webcam redirection, drive redirection, and GPU-accelerated OpenGL.">
 <link rel="icon" href="../assets/company-logo.png">
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -19,7 +19,7 @@
   <section class="hero">
     <h1>Linux XRDP Desktop</h1>
     <p>A full Ubuntu desktop in a container, over RDP.</p>
-    <p>A full Ubuntu 24.04 XFCE desktop in a Docker container, accessible over RDP &mdash; built for a fast, responsive remote Linux desktop that actually plays video smoothly.</p>
+    <p>A full Ubuntu 24.04 KDE Plasma desktop in a Docker container, styled to look and feel like macOS, accessible over RDP &mdash; built for a fast, responsive remote Linux desktop that actually plays video smoothly.</p>
     <p class="tag">Open source &middot; MIT</p>
     <div class="links">
       <a class="btn" href="https://github.com/jmez11/linux-xrdp-desktop">GitHub</a>
@@ -33,15 +33,16 @@
   <section>
     <h2>What you get</h2>
     <ul>
-      <li><strong>Ubuntu 24.04 + XFCE</strong> &mdash; Arc-Dark theme, Papirus icons, dark aurora wallpaper.</li>
+      <li><strong>Ubuntu 24.04 + KDE Plasma, macOS layout &amp; styling</strong> &mdash; translucent top menu bar (window title, global application menu, tray, Control Centre, clock), top-left Calendar/Clock/Weather widgets, a centered floating bottom dock with hover-zoom, Mkos-Big-Sur icons, Summaculate traffic-light window controls on the top-left, Breeze Dark theme, and Inter + Fira Code fonts with smooth subpixel rendering.</li>
+      <li><strong>One-click <code>.deb</code> installation</strong> &mdash; double-clicking a downloaded <code>.deb</code> refreshes APT, resolves dependencies, installs it, and notifies you on completion.</li>
       <li><strong>H.264 RDP encoding</strong> &mdash; xrdp 0.10.3 + xorgxrdp 0.10.3 built from source with x264 (Ubuntu's xrdp 0.9.x has no H.264 support). Smooth video playback and snappy window dragging at 1080p.</li>
       <li><strong>TLS-encrypted RDP</strong> on port 3389, with multi-monitor support.</li>
       <li><strong>Audio both ways</strong> &mdash; PulseAudio playback and microphone redirection over RDP.</li>
       <li><strong>Webcam redirection (<code>[MS-RDPECAM]</code>)</strong> &mdash; client cameras redirected over RDP video-capture channels, decoded (H.264 via OpenH264, plus raw YUY2/NV12/I420) and published as native PipeWire <code>Video/Source</code> camera nodes inside the container. Best efforts are made to keep them working in session: cameras enumerate on demand, pipelines are kept ready and restarted on device switch, and inactive pipelines are stopped cleanly so switching doesn't evict the client.</li>
-      <li><strong>Drive redirection</strong> &mdash; share client drives; they appear at <code>~/thinclient_drives/</code> via FUSE.</li>
+      <li><strong>Drive redirection</strong> &mdash; share client drives; they appear at <code>~/thinclient_drives/</code> via FUSE and populate Dolphin's Places sidebar as <code>&lt;Drive&gt; on &lt;ClientName&gt;</code>.</li>
       <li><strong>Clipboard</strong> redirection.</li>
       <li><strong>VirtualGL</strong> &mdash; GPU-accelerated OpenGL for headless servers (<code>vglrun glmark2</code> to test).</li>
-      <li><strong>Preinstalled apps</strong> &mdash; Firefox, VS Code, GIMP, Inkscape, VLC, LibreOffice, Blender, htop, neofetch, git.</li>
+      <li><strong>Preinstalled apps</strong> &mdash; Dolphin, Konsole, Kate, Gwenview, Okular, Spectacle, KRunner (<code>Alt+Space</code>), Firefox, VS Code, GIMP, Inkscape, Blender, OBS Studio, VLC, LibreOffice, htop, neofetch, git.</li>
     </ul>
   </section>
 
@@ -61,6 +62,7 @@
     <ul>
       <li><code>RDP_USER</code> (default <code>engineer</code>) &mdash; desktop username, created on first start, has sudo.</li>
       <li><code>RDP_PASS</code> (default <code>ChangeMe123!</code>) &mdash; <strong>change this</strong>. Login password.</li>
+      <li><code>PUID</code> / <code>PGID</code> (default auto) &mdash; host user/group IDs, so the container user matches your host permissions on mounted volumes.</li>
       <li><code>TZ</code> (default <code>UTC</code>) &mdash; timezone.</li>
       <li><code>LIBVA_DRIVER_NAME</code> (default <code>iHD</code>) &mdash; VAAPI driver: <code>iHD</code> (Intel), <code>radeonsi</code> (AMD), omit for NVIDIA.</li>
     </ul>
@@ -75,13 +77,22 @@
       <li><strong>Microphone</strong> &mdash; same dialog &rarr; <em>Record from this computer</em>.</li>
       <li><strong>Video capture devices</strong> &mdash; Local Resources &rarr; More &rarr; Video capture devices &rarr; tick your camera(s) (FreeRDP: <code>/camera:device,format:h264</code>). Redirected cameras appear as PipeWire <code>Video/Source</code> nodes and work in major browsers.</li>
     </ul>
-    <p>Drive shares only take effect on a fresh login &mdash; if you tick them mid-session, log out of XFCE completely and reconnect.</p>
+    <p>Drive shares only take effect on a fresh login &mdash; if you tick them mid-session, log out of KDE Plasma completely and reconnect.</p>
+  </section>
+
+  <section>
+    <h2>Zoom</h2>
+    <p>Zoom works in the desktop &mdash; two routes, from the repo's <a href="https://github.com/jmez11/linux-xrdp-desktop/blob/main/docs/ZOOM_WEBCAM_GUIDE.md">Zoom &amp; Standalone V4L2 Webcam Guide</a>:</p>
+    <ul>
+      <li><strong>Zoom Web Client (recommended, zero setup):</strong> open Firefox or Edge in the session, go to <code>app.zoom.us/wc</code> (or join from your browser), allow camera and microphone. The redirected camera works directly through PipeWire &mdash; no host setup.</li>
+      <li><strong>Native Zoom desktop:</strong> extra steps, also in the guide &mdash; load <code>v4l2loopback</code> on the Docker host (<code>exclusive_caps=1</code>, card label <code>"XRDP Camera"</code>), pass <code>/dev/video0</code> into the container, then launch Zoom and select <code>"XRDP Camera 1"</code>. The container's on-demand bridge only streams while an app is using the camera, so the physical webcam stays off otherwise. Up to 8 cameras can be redirected at once.</li>
+    </ul>
   </section>
 
   <section>
     <h2>Limitations</h2>
     <ul>
-      <li><strong>Webcams (best effort):</strong> video-capture channels are built in, but redirection is best effort, not guaranteed for every app. Browsers use the PipeWire camera nodes directly; native V4L2-only apps (e.g. Zoom desktop) need the optional <code>/dev/video0</code> passthrough described in the repo's Zoom webcam guide.</li>
+      <li><strong>Webcams (best effort):</strong> video-capture channels are built in, but redirection is best effort, not guaranteed for every app. Browsers use the PipeWire camera nodes directly. Zoom is working in the desktop (web client with zero setup; native client via the guide's loopback steps) &mdash; other native V4L2-only apps need the same kind of optional <code>/dev/video0</code> passthrough, described in the repo's <a href="https://github.com/jmez11/linux-xrdp-desktop/blob/main/docs/ZOOM_WEBCAM_GUIDE.md">Zoom &amp; Standalone V4L2 Webcam Guide</a>.</li>
       <li><strong>RDP only:</strong> no VNC/SSH in this image by design; it's a single-purpose desktop container.</li>
     </ul>
     <p>Full details, the Dockerfile, and the compose file are in the repo.</p>
