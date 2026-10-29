@@ -1,11 +1,13 @@
 :root {
-  --bg: #0b0f16;
-  --panel: #121826;
-  --border: #1f2a3d;
-  --text: #e8edf3;
-  --muted: #93a1b5;
-  --accent: #22d3ee;
-  --accent-dim: rgba(34, 211, 238, 0.12);
+  /* Sunset palette, drawn from the company banner: dusk brown, warm sand,
+     and the orange of the harbor sunset. */
+  --bg: #17100a;
+  --panel: #251a11;
+  --border: #40301f;
+  --text: #f8f1e6;
+  --muted: #c9b6a2;
+  --accent: #ff9d4d;
+  --accent-dim: rgba(255, 157, 77, 0.14);
 }
 
 * { box-sizing: border-box; }
@@ -31,6 +33,7 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 10px;
+  object-fit: cover;
 }
 
 .wordmark {
@@ -53,13 +56,22 @@ main {
   font-size: 2.5rem;
   line-height: 1.2;
   margin: 0 0 0.75rem;
+  text-wrap: balance;
 }
 
 .hero p {
   color: var(--muted);
   font-size: 1.15rem;
   margin: 0;
-  max-width: 34rem;
+  max-width: 44rem;
+}
+
+.hero-banner {
+  display: block;
+  width: 100%;
+  border-radius: 14px;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border);
 }
 
 .section-heading {
@@ -70,7 +82,7 @@ main {
 .section-intro {
   color: var(--muted);
   margin: -0.5rem 0 1.25rem;
-  max-width: 40rem;
+  max-width: 44rem;
 }
 
 .beyond-vr {
@@ -121,7 +133,7 @@ main {
 
 .tag.muted {
   color: var(--muted);
-  background: rgba(147, 161, 181, 0.12);
+  background: rgba(201, 182, 162, 0.12);
 }
 
 .card p { color: var(--muted); }
@@ -136,7 +148,7 @@ main {
 .btn {
   display: inline-block;
   background: var(--accent);
-  color: #062a30;
+  color: #2a1400;
   font-weight: 700;
   text-decoration: none;
   border-radius: 10px;

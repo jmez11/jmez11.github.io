@@ -7,6 +7,8 @@ Static company hub for oceanside-vr.com.
 - `farside/` — Farside Workspace page and docs
 - `linux-xrdp-desktop/` — Linux XRDP Desktop page
 - `stillframe-daydream/` — Stillframe Daydream page
-- `styles.css` — dark theme with neon accent
+- `styles.css` — warm sunset theme (dusk brown, sand, sunset orange), drawn from the company banner
+- `assets/logo.png` — company mark: Quest headset at the harbor at sunset (cropped from the banner)
+- `assets/company-banner.jpg` — full company banner, used as the homepage hero
 - `assets/logo.png` — brand icon (from the DeadEasy Player site)
 - `CNAME` — `oceanside-vr.com`, picked up by Pages automatically
