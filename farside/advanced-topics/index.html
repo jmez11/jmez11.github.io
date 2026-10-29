@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Advanced topics — Farside Workspace</title>
+<meta name="description" content="Cloudflare proxy setup, the Mac SSH workaround, and the reverse tunnel for remote ADB access to the headset.">
+<link rel="icon" href="../../assets/logo.png">
+<link rel="stylesheet" href="../../styles.css">
+<style>
+.doc h2 { margin-top: 2.5rem; }
+.doc h3 { margin-top: 1.75rem; }
+.doc li { margin-bottom: 0.4rem; }
+.doc-nav { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 2.5rem; }
+.back { color: var(--muted); text-decoration: none; }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a href="../../" style="display:flex;align-items:center;gap:0.75rem;text-decoration:none;color:inherit;">
+    <img src="../../assets/logo.png" alt="OceanSideVR logo" class="logo">
+    <span class="wordmark">OceanSideVR</span>
+  </a>
+</header>
+<main class="doc">
+  <p><a class="back" href="../">&larr; Farside Workspace</a></p>
+  <section class="hero" style="padding-top:2rem;">
+    <h1>Advanced topics</h1>
+    <p>Cloudflare proxying, the Mac SSH workaround, and reaching the headset's ADB over Cloudflare. Everything here works the same way for RDP, SSH, and VNC — the screenshots below show RDP as the example, but the pattern is the same for all connection types.</p>
+  </section>
+
+  <section>
+    <h2>Cloudflare proxy, in plain terms</h2>
+    <p>Normally, connecting to a computer from outside its network means opening an inbound port on that network. Cloudflare turns that around: the computer at home runs a small tunnel program that connects <em>out</em> to Cloudflare, and Cloudflare routes a public hostname to it. Nothing listens on an inbound port at home.</p>
+    <p>In Farside, you pick <strong>Cloudflare</strong> as the connection's Network, instead of Direct. On the headset, Farside runs its own bundled Cloudflare client for that session, talks to Cloudflare, and connects to your computer through the tunnel on a private loopback connection. If the hostname is protected by Cloudflare Access, a browser sign-in opens when needed. Your computer's own host and certificate checks still apply — the tunnel does not skip them — and saved Cloudflare credentials are stored encrypted on the headset.</p>
+    <p>Use it when the computer you want is not on the same network as the headset, or when you do not want to open ports to reach it. SOCKS5 and HTTP proxies are also available per connection, for networks where those fit better.</p>
+  </section>
+
+  <section>
+    <h2>Setting up Cloudflare names to use</h2>
+    <p>The setup is done once in the Cloudflare dashboard, on the computer that will be reached, and then reused by every Farside connection that points at it.</p>
+
+    <h3>1. Create a tunnel on the home computer</h3>
+    <p>In Cloudflare Zero Trust, go to Networks &gt; Tunnels and create a tunnel, then install and run the tunnel program on the computer you want to reach. Give the tunnel a name you will recognise, such as the computer's name. Before troubleshooting Farside, check here first: the tunnel should show as Healthy, with at least one replica running.</p>
+    <figure>
+      <img src="../media/cf-tunnels.png" alt="Cloudflare Tunnels list, showing a healthy tunnel" style="width:100%;border-radius:14px;">
+      <figcaption>A tunnel in Cloudflare, showing Healthy with one replica running.</figcaption>
+    </figure>
+
+    <h3>2. Route a hostname to the local service</h3>
+    <p>In the tunnel, add a route: a public hostname, and the service on that computer it should reach. For RDP, that is the local Remote Desktop service, on port 3389. The same pattern applies to the others — SSH on port 22, and VNC / Mac Screen Sharing on port 5900 — just a different hostname and port for each service.</p>
+    <figure>
+      <img src="../media/cf-routes.png" alt="Cloudflare tunnel route, hostname pointing to the local RDP service" style="width:100%;border-radius:14px;">
+      <figcaption>A tunnel route: a public hostname pointing to the local RDP service on port 3389.</figcaption>
+    </figure>
+
+    <h3>3. Protect the hostname with an Access policy</h3>
+    <p>A public hostname on its own is reachable by anyone who knows it. In Zero Trust &gt; Access, create a self-hosted application for that hostname and assign it a policy — for example, a policy that allows only a named group of users. Only users who match the policy can reach the application; everyone else is stopped by Cloudflare before they ever reach your computer. Reusable policies can be shared across many applications.</p>
+    <figure>
+      <img src="../media/cf-policies.png" alt="Cloudflare reusable Access policies list" style="width:100%;border-radius:14px;">
+      <figcaption>Reusable Access policies, which can be applied to many applications.</figcaption>
+    </figure>
+    <figure>
+      <img src="../media/cf-applications.png" alt="Cloudflare Access applications list, showing an RDP application with its policies" style="width:100%;border-radius:14px;">
+      <figcaption>An Access application for RDP, with its policies attached.</figcaption>
+    </figure>
+
+    <h3>4. Point Farside at the hostname</h3>
+    <p>In Farside, add or edit the connection and set its Network to Cloudflare. Enter the public hostname as the host, and the service port (3389 for RDP, 22 for SSH, 5900 for VNC / Mac). When you connect, sign in through the browser if Cloudflare Access asks you to, then sign in to the computer itself as usual.</p>
+  </section>
+
+  <section>
+    <h2>The Mac workaround: connecting to a Mac through SSH</h2>
+    <p>Mac Screen Sharing's direct video and audio use UDP, and Cloudflare, HTTP, and SOCKS routes do not carry that UDP traffic. A Mac reached only through one of those routes can therefore lose its direct video and audio, or fall back to ordinary VNC without them.</p>
+    <p>The workaround is to go through SSH instead, using two extra checkboxes in the Mac connection:</p>
+    <ol>
+      <li><strong>First, set up SSH to that same Mac.</strong> Add an SSH connection that signs in to the Mac you want to view — via its Cloudflare route or another supported transport. It must sign in to the viewed Mac itself, not to a different machine.</li>
+      <li><strong>Then, in the Mac / VNC connection, open Review &amp; options &gt; Companion Remote Login.</strong> Pick that SSH connection as the “SSH connection for media relay”.</li>
+      <li><strong>Turn on “SSH media relay (experimental)”.</strong> This runs a small script on the Mac, over your SSH login, to relay video and audio. It lasts only for the session and installs nothing on the Mac. Farside will ask you to confirm it the first time, because it is experimental.</li>
+      <li><strong>Turn on “Use SSH for the full Mac connection”.</strong> Now the whole Mac connection — screen sharing, video, and audio — goes through that SSH connection, and only its Cloudflare route is needed. The saved VNC hostname is ignored while this is on, and the server port must be the Mac's Screen Sharing port, normally 5900. Turn it off to go back to separate VNC and SSH routes.</li>
+    </ol>
+    <p>No manually configured SOCKS proxy is needed for this. Files and SFTP pairing are separate from the media relay — pairing a Mac with an SSH connection for files does not, on its own, turn on the media workaround.</p>
+  </section>
+
+  <section>
+    <h2>Reverse tunnel: reaching the headset's ADB from elsewhere</h2>
+    <p>This one runs in the opposite direction. The sections above let the headset reach computers at home. This lets a computer elsewhere reach the headset — specifically, its wireless ADB — so you can push builds and debug the headset from another machine, without opening an inbound port on the headset's network.</p>
+    <p>On the headset, in About, set up the ADB tunnel: a Cloudflare tunnel token, the published hostname, and a bridge port (the relay defaults to 5555). Start the service from there. It runs as a foreground service, does not start automatically at boot, stops if you force-stop it or turn developer / wireless ADB off, and checks every 15 seconds that ADB is still available, pausing the tunnel if it is not. The token is stored encrypted on the headset, and the generated tunnel configuration contains no token.</p>
+    <p>In the Cloudflare dashboard, publish that hostname to the bridge port — a route to <code>tcp://localhost:&lt;bridge-port&gt;</code> — and create its DNS record, exactly as for a home computer above.</p>
+    <p>On the remote computer, run the Cloudflare client to open the tunnel locally, then connect ADB through it:</p>
+    <pre><code>cloudflared access tcp --hostname &lt;hostname&gt; --url 127.0.0.1:&lt;bridge-port&gt;
+adb connect 127.0.0.1:&lt;bridge-port&gt;</code></pre>
+    <p>That carries the headset's existing wireless ADB authentication through the relay. It does not publish a raw public TCP port, and it is developer access to the headset, not a Farside session — it is the route used to install and test builds on the headset from elsewhere.</p>
+  </section>
+
+  <nav class="doc-nav">
+    <a class="btn" href="../getting-started/">&larr; Getting started</a>
+    <a class="btn" href="../toolbars/">Toolbars &amp; sessions</a>
+    <a class="btn" href="../credentials/">Credentials &amp; files</a>
+  </nav>
+</main>
+<footer>
+  <p>&copy; 2026 OceanSideVR &middot; <a href="../">Farside Workspace</a> &middot; <a href="../../">OceanSideVR home</a></p>
+</footer>
+</body>
+</html>
