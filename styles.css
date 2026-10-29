@@ -149,6 +149,11 @@ main {
   border: 1px solid var(--accent);
 }
 
+.btn.soon {
+  opacity: 0.65;
+  cursor: default;
+}
+
 footer {
   max-width: 880px;
   margin: 0 auto;
