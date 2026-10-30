@@ -99,7 +99,7 @@ main {
 .products {
   display: grid;
   gap: 1.25rem;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .card {
@@ -180,6 +180,10 @@ footer {
 }
 
 footer a { color: var(--accent); }
+
+@media (max-width: 720px) {
+  .products { grid-template-columns: 1fr; }
+}
 
 @media (max-width: 560px) {
   .hero { padding: 1.5rem 0 2rem; }
