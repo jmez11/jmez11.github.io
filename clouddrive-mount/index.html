@@ -32,7 +32,7 @@
   <section>
     <h2>What you get</h2>
     <ul>
-      <li><strong>Five storage providers</strong> &mdash; SFTP (password or private key, with an optional sudo superuser mode), FTP/FTPS (explicit or implicit TLS), WebDAV (with file locking), Google Drive (with your own OAuth client), and Cloudflare R2 (bucket-scoped tokens).</li>
+      <li><strong>Five storage providers</strong> &mdash; SFTP (password or private key, with an optional sudo superuser mode), FTP/FTPS (explicit or implicit TLS), WebDAV (with file locking), Google Drive, and Cloudflare R2 (bucket-scoped tokens).</li>
       <li><strong>Real drive letters with custom Explorer icons</strong> &mdash; mounts as W:, X:, or any free letter, with a per-protocol icon and label in Explorer.</li>
       <li><strong>Cloudflared built in</strong> &mdash; per-drive tunnels (<code>cloudflared access tcp</code>) or Cloudflare Access service-token headers, supervised by the app.</li>
       <li><strong>Fast repeat access</strong> &mdash; files you open are cached locally, and browsing a folder doesn&rsquo;t download anything until you open a file.</li>
@@ -53,7 +53,7 @@
 
   <section>
     <h2>Google Drive</h2>
-    <p>Google Drive uses your own OAuth client: you create a Desktop-app OAuth client in Google Cloud Console and import its <code>client_secret.json</code> into the app (or paste the client ID and secret). Google Docs, Sheets, and Slides show up as shortcuts that open in your browser.</p>
+    <p>Google Drive needs no setup &mdash; just add a Google Drive drive and sign in. Google Docs, Sheets, and Slides show up as shortcuts that open in your browser.</p>
     <p>When you sign in, Google shows an &ldquo;unverified app&rdquo; warning. That&rsquo;s expected &mdash; this app isn&rsquo;t verified by Google. Click <strong>Advanced</strong>, then <strong>Go to</strong> continue.</p>
     <p>Full setup steps are in the <a href="https://github.com/jmez11/clouddrive-mount/blob/main/docs/google-drive.md">Google Drive docs</a>.</p>
   </section>
@@ -73,7 +73,7 @@
       </article>
       <article class="card">
         <h2>Google Drive</h2>
-        <p>Set up your own OAuth client, sign in, and what the unverified-app warning means.</p>
+        <p>Sign in, scopes, and what the unverified-app warning means.</p>
         <div class="links"><a class="btn" href="https://github.com/jmez11/clouddrive-mount/blob/main/docs/google-drive.md">Read it</a></div>
       </article>
       <article class="card">
