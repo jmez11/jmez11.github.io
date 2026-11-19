@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CloudDrive Mount — OceanSideVR</title>
+<meta name="description" content="CloudDrive Mount turns SFTP, FTP, WebDAV, Google Drive, and Cloudflare R2 into ordinary Windows drive letters — with cloudflared tunnels and LAN sharing built in.">
+<link rel="icon" href="../assets/company-logo.png">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<header class="site-header">
+  <a href="../" style="display:flex;align-items:center;gap:0.75rem;text-decoration:none;color:inherit;">
+    <img src="../assets/company-logo.png" alt="OceanSideVR logo" class="logo">
+    <span class="wordmark">OceanSide<span class="wordmark-vr" style="color:#ff9d4d">VR</span></span>
+  </a>
+</header>
+<main>
+  <section class="hero">
+    <h1>CloudDrive Mount</h1>
+    <p>Your cloud storage, as a drive letter.</p>
+    <p>CloudDrive Mount turns remote storage into ordinary Windows drives. Connect an SFTP server, an FTP site, a WebDAV share, your Google Drive, or a Cloudflare R2 bucket, and it shows up in Explorer as W:, X:, or whatever letter you pick &mdash; read and write, just like a local disk.</p>
+    <p>It runs in the system tray, reconnects your drives when Windows starts, and works through Cloudflare tunnels, so your servers stay reachable without opening ports. No account, no cloud service of its own &mdash; your files go straight from your computer to your storage.</p>
+    <p class="tag">Open source &middot; GPL-3.0</p>
+    <div class="links">
+      <a class="btn" href="https://github.com/jmez11/clouddrive-mount">GitHub</a>
+      <a class="btn ghost" href="https://github.com/jmez11/clouddrive-mount/releases">Releases</a>
+      <a class="btn ghost" href="https://github.com/jmez11/clouddrive-mount/tree/main/docs">Documentation</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>What you get</h2>
+    <ul>
+      <li><strong>Five storage providers</strong> &mdash; SFTP (password or private key, with an optional sudo superuser mode), FTP/FTPS (explicit or implicit TLS), WebDAV (with file locking), Google Drive (with your own OAuth client), and Cloudflare R2 (bucket-scoped tokens).</li>
+      <li><strong>Real drive letters with custom Explorer icons</strong> &mdash; mounts as W:, X:, or any free letter, with a per-protocol icon and label in Explorer.</li>
+      <li><strong>Cloudflared built in</strong> &mdash; per-drive tunnels (<code>cloudflared access tcp</code>) or Cloudflare Access service-token headers, supervised by the app.</li>
+      <li><strong>Fast repeat access</strong> &mdash; files you open are cached locally, and browsing a folder doesn&rsquo;t download anything until you open a file.</li>
+      <li><strong>LAN sharing</strong> &mdash; mount as a Local Disk and share the drive across your home network from Explorer&rsquo;s Sharing tab.</li>
+      <li><strong>Portable single file</strong> &mdash; one <code>CloudDriveMount.exe</code>, no installer. Settings can live next to the executable.</li>
+      <li><strong>System tray</strong> &mdash; lives in the tray and reconnects your drives when Windows starts.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Quick start</h2>
+    <ol>
+      <li>Download <code>CloudDriveMount-win-x64.zip</code> from <a href="https://github.com/jmez11/clouddrive-mount/releases">GitHub Releases</a>, extract it, and run <code>CloudDriveMount.exe</code>. WinFsp is bundled and installed automatically if it&rsquo;s missing.</li>
+      <li>Add a drive: pick a letter, a protocol, and your server details.</li>
+      <li>Click Connect &mdash; the drive appears in Explorer.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Google Drive</h2>
+    <p>Google Drive uses your own OAuth client: you create a Desktop-app OAuth client in Google Cloud Console and import its <code>client_secret.json</code> into the app (or paste the client ID and secret). Google Docs, Sheets, and Slides show up as shortcuts that open in your browser.</p>
+    <p>When you sign in, Google shows an &ldquo;unverified app&rdquo; warning. That&rsquo;s expected &mdash; this app isn&rsquo;t verified by Google. Click <strong>Advanced</strong>, then <strong>Go to</strong> continue.</p>
+    <p>Full setup steps are in the <a href="https://github.com/jmez11/clouddrive-mount/blob/main/docs/google-drive.md">Google Drive docs</a>.</p>
+  </section>
+
+  <section>
+    <h2>Documentation</h2>
+    <section class="products">
+      <article class="card">
+        <h2>Getting started</h2>
+        <p>Install the app, add your first drive, and set up reconnect and portable mode.</p>
+        <div class="links"><a class="btn" href="https://github.com/jmez11/clouddrive-mount/blob/main/docs/getting-started.md">Read it</a></div>
+      </article>
+      <article class="card">
+        <h2>Providers</h2>
+        <p>What each storage provider needs: SFTP, FTP/FTPS, WebDAV, Google Drive, and Cloudflare R2.</p>
+        <div class="links"><a class="btn" href="https://github.com/jmez11/clouddrive-mount/blob/main/docs/providers.md">Read it</a></div>
+      </article>
+      <article class="card">
+        <h2>Google Drive</h2>
+        <p>Set up your own OAuth client, sign in, and what the unverified-app warning means.</p>
+        <div class="links"><a class="btn" href="https://github.com/jmez11/clouddrive-mount/blob/main/docs/google-drive.md">Read it</a></div>
+      </article>
+      <article class="card">
+        <h2>Cloudflared &amp; sharing</h2>
+        <p>Tunnels, Access service tokens, Local Disk modes, and sharing a drive on your LAN.</p>
+        <div class="links"><a class="btn" href="https://github.com/jmez11/clouddrive-mount/blob/main/docs/cloudflared-and-sharing.md">Read it</a></div>
+      </article>
+      <article class="card">
+        <h2>Troubleshooting</h2>
+        <p>WinFsp, sign-in timeouts, stale mounts, and where the app keeps its files.</p>
+        <div class="links"><a class="btn" href="https://github.com/jmez11/clouddrive-mount/blob/main/docs/troubleshooting.md">Read it</a></div>
+      </article>
+    </section>
+  </section>
+
+  <section>
+    <h2>Privacy</h2>
+    <p>CloudDrive Mount has no telemetry, no analytics, and no account. Your credentials are encrypted on your device with Windows DPAPI, and your files go only to the storage you configure.</p>
+    <div class="links">
+      <a class="btn ghost" href="https://github.com/jmez11/clouddrive-mount/blob/main/PRIVACY_POLICY.md">Privacy Policy</a>
+      <a class="btn ghost" href="https://github.com/jmez11/clouddrive-mount/blob/main/TERMS_OF_SERVICE.md">Terms of Service</a>
+    </div>
+  </section>
+</main>
+<footer>
+  <p>&copy; 2026 OceanSideVR &middot; <a href="../">OceanSideVR home</a> &middot; <a href="https://github.com/jmez11">GitHub</a></p>
+</footer>
+</body>
+</html>
